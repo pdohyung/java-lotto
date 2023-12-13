@@ -1,12 +1,31 @@
 package lotto.util;
 
-import static lotto.util.ErrorMessage.INVALID_AMOUNT_MESSAGE;
-import static lotto.util.ErrorMessage.INVALID_NUMBER_FORMAT_MESSAGE;
+import java.util.Arrays;
+import java.util.List;
+
+import static lotto.util.ErrorMessage.*;
 
 public class InputValidator {
     public static int validateInputAmount(String input) {
         int inputAmount = convertStringToInteger(input);
         return validateOneThousandWon(inputAmount);
+    }
+
+    public static List<Integer> validateInputWinningNumbers(String input) {
+        return splitInputWinningNumbersByComma(input);
+    }
+
+    private static List<Integer> splitInputWinningNumbersByComma(String input) {
+        if (input.startsWith(",")) {
+            throw new IllegalArgumentException(INVALID_WINNING_NUMBERS_MESSAGE.getErrorMessage());
+        }
+        if (input.endsWith(",")) {
+            throw new IllegalArgumentException(INVALID_WINNING_NUMBERS_MESSAGE.getErrorMessage());
+        }
+        return Arrays.stream(input.split(","))
+                .mapToInt(InputValidator::convertStringToInteger)
+                .boxed()
+                .toList();
     }
 
     private static int convertStringToInteger(String input) {
