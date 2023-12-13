@@ -16,6 +16,10 @@ public class InputValidator {
         return splitInputWinningNumbersByComma(input);
     }
 
+    public static int validateInputBonusNumber(String input) {
+        return convertStringToInteger(input);
+    }
+
     private static List<Integer> splitInputWinningNumbersByComma(String input) {
         if (input.startsWith(COMMA)) {
             throw new IllegalArgumentException(INVALID_WINNING_NUMBERS_MESSAGE.getErrorMessage());
