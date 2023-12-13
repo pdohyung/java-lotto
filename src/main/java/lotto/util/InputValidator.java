@@ -3,6 +3,7 @@ package lotto.util;
 import java.util.Arrays;
 import java.util.List;
 
+import static lotto.util.Constants.*;
 import static lotto.util.ErrorMessage.*;
 
 public class InputValidator {
@@ -16,13 +17,13 @@ public class InputValidator {
     }
 
     private static List<Integer> splitInputWinningNumbersByComma(String input) {
-        if (input.startsWith(",")) {
+        if (input.startsWith(COMMA)) {
             throw new IllegalArgumentException(INVALID_WINNING_NUMBERS_MESSAGE.getErrorMessage());
         }
-        if (input.endsWith(",")) {
+        if (input.endsWith(COMMA)) {
             throw new IllegalArgumentException(INVALID_WINNING_NUMBERS_MESSAGE.getErrorMessage());
         }
-        return Arrays.stream(input.split(","))
+        return Arrays.stream(input.split(COMMA))
                 .mapToInt(InputValidator::convertStringToInteger)
                 .boxed()
                 .toList();
@@ -37,7 +38,7 @@ public class InputValidator {
     }
 
     private static int validateOneThousandWon(int inputAmount) {
-        if (inputAmount % 1_000 != 0) {
+        if (inputAmount % LOTTO_PRICE != 0) {
             throw new IllegalArgumentException(INVALID_AMOUNT_MESSAGE.getErrorMessage());
         }
         return inputAmount;
