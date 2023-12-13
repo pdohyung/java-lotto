@@ -11,6 +11,8 @@ import lotto.view.OutputView;
 import java.util.EnumMap;
 import java.util.List;
 
+import static lotto.util.Constants.PERCENT_FORMAT;
+
 public class LottoController {
     private final OutputView outputView;
     private final InputView inputView;
@@ -28,6 +30,7 @@ public class LottoController {
         int bonusNumber = inputView.inputBonusNumber();
         WinningLottoNumbers winningLottoNumbers = new WinningLottoNumbers(winningNumbers, bonusNumber);
         EnumMap<LottoPrize, Integer> lottoResult = result(winningLottoNumbers, lottoTicket);
+        outputView.printLottoResult(lottoResult, calculateProfit(lottoResult, amount));
     }
 
     public List<Lotto> buy(int amount) {
@@ -38,4 +41,10 @@ public class LottoController {
         return new LottoResult(winningLottoNumbers, lottoTicket).getLottoResult();
     }
 
+    public double calculateProfit(EnumMap<LottoPrize, Integer> lottoResult, int amount) {
+        double totalPrize = lottoResult.keySet().stream()
+                .mapToDouble(prize -> prize.getPrize() * lottoResult.get(prize))
+                .sum();
+        return totalPrize / amount * PERCENT_FORMAT;
+    }
 }

@@ -7,5 +7,6 @@ public class Constants {
     public static final int LOTTO_LENGTH = 6;
     public static final int LAST_PRIZE = 3;
     public static final int LOTTO_PRICE = 1_000;
+    public static final int PERCENT_FORMAT = 100;
     public static final String COMMA = ",";
 }
