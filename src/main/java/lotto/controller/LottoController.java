@@ -27,8 +27,7 @@ public class LottoController {
         List<Lotto> lottoTicket = buy(amount);
         outputView.printLottoTicket(lottoTicket);
         List<Integer> winningNumbers = retryInputWinningNumbers();
-        int bonusNumber = retryInputBonusNumber();
-        WinningLottoNumbers winningLottoNumbers = new WinningLottoNumbers(winningNumbers, bonusNumber);
+        WinningLottoNumbers winningLottoNumbers = retryInputBonusNumber(winningNumbers);
         EnumMap<LottoPrize, Integer> lottoResult = result(winningLottoNumbers, lottoTicket);
         outputView.printLottoResult(lottoResult, calculateProfit(lottoResult, amount));
     }
@@ -68,10 +67,11 @@ public class LottoController {
         }
     }
 
-    private int retryInputBonusNumber() {
+    private WinningLottoNumbers retryInputBonusNumber(List<Integer> winningNumbers) {
         while (true) {
             try {
-                return inputView.inputBonusNumber();
+                int bonusNumber = inputView.inputBonusNumber();
+                return new WinningLottoNumbers(winningNumbers, bonusNumber);
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());
             }
