@@ -55,7 +55,7 @@ public class InputValidator {
     }
 
     private static int validateOneThousandWon(int inputAmount) {
-        if (inputAmount % LOTTO_PRICE != 0) {
+        if ((inputAmount % LOTTO_PRICE) != 0 || inputAmount == 0) {
             throw new IllegalArgumentException(INVALID_AMOUNT_MESSAGE.getErrorMessage());
         }
         return inputAmount;
