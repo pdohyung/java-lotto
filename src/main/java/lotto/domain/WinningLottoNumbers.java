@@ -8,25 +8,25 @@ import static lotto.util.Constants.*;
 import static lotto.util.ErrorMessage.INVALID_LOTTO_NUMBER_DUPLICATE;
 
 public class WinningLottoNumbers {
-    private final List<Integer> winningNumbers;
+    private final Lotto winningNumbers;
     private final int bonusNumber;
 
     public WinningLottoNumbers(List<Integer> winningNumbers, int bonusNumber) {
         validateLottoRange(List.of(bonusNumber));
-        validateDuplicate(winningNumbers, bonusNumber);
-        this.winningNumbers = winningNumbers;
+        validateBonusNumberDuplicate(winningNumbers, bonusNumber);
+        this.winningNumbers = new Lotto(winningNumbers);
         this.bonusNumber = bonusNumber;
     }
 
     public List<Integer> getWinningNumbers() {
-        return winningNumbers;
+        return winningNumbers.getNumbers();
     }
 
     public int getBonusNumber() {
         return bonusNumber;
     }
 
-    private void validateDuplicate(List<Integer> numbers, int number) {
+    private void validateBonusNumberDuplicate(List<Integer> numbers, int number) {
         if (numbers.contains(number)) {
             throw new IllegalArgumentException(INVALID_LOTTO_NUMBER_DUPLICATE.getErrorMessage());
         }
