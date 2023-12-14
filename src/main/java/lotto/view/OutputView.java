@@ -5,6 +5,7 @@ import lotto.domain.enums.LottoPrize;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.List;
@@ -49,6 +50,8 @@ public class OutputView {
                             prize.getPrize(), count));
                 });
         BigDecimal number = new BigDecimal(profit);
-        System.out.println(format(LOTTO_PROFIT_MESSAGE_FORMAT, number.setScale(1, RoundingMode.HALF_EVEN)));
+        DecimalFormat decimalFormat = new DecimalFormat("#.0");
+        System.out.println(format(LOTTO_PROFIT_MESSAGE_FORMAT,
+                decimalFormat.format(number.setScale(1, RoundingMode.HALF_EVEN))));
     }
 }
