@@ -27,10 +27,23 @@ public class InputValidator {
         if (input.endsWith(COMMA)) {
             throw new IllegalArgumentException(INVALID_WINNING_NUMBERS_MESSAGE.getErrorMessage());
         }
-        return Arrays.stream(input.split(COMMA))
+        List<Integer> winningNumbers = Arrays.stream(input.split(COMMA))
                 .mapToInt(InputValidator::convertStringToInteger)
                 .boxed()
                 .toList();
+        return validateWinningNumbers(winningNumbers);
+    }
+
+    private static List<Integer> validateWinningNumbers(List<Integer> winningNumbers) {
+        if (winningNumbers.size() != LOTTO_LENGTH) {
+            throw new IllegalArgumentException(INVALID_LOTTO_LENGTH.getErrorMessage());
+        }
+        boolean isValidRange = winningNumbers.stream()
+                .allMatch(num -> num >= LOTTO_START_NUMBER && num <= LOTTO_END_NUMBER);
+        if (!isValidRange) {
+            throw new IllegalArgumentException(INVALID_LOTTO_NUMBER_RANGE.getErrorMessage());
+        }
+        return winningNumbers;
     }
 
     private static int convertStringToInteger(String input) {
