@@ -50,7 +50,7 @@ public class OutputView {
                             prize.getPrize(), count));
                 });
         BigDecimal number = new BigDecimal(profit);
-        DecimalFormat decimalFormat = new DecimalFormat("#.0");
+        DecimalFormat decimalFormat = new DecimalFormat("0.0");
         System.out.println(format(LOTTO_PROFIT_MESSAGE_FORMAT,
                 decimalFormat.format(number.setScale(1, RoundingMode.HALF_EVEN))));
     }
